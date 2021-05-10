@@ -6,15 +6,11 @@ let point = 0
 const start = () => {
   document.querySelector('#start').addEventListener('click', ()=>{
     createBrick()
+    timer()
     gameLoop()
   })
 }
 
-const gameLoop = () => {
-  moveRect()
-  checkPoint()
-  requestAnimationFrame(gameLoop);
-}
 
 const moveRect = () => {
   let rect = document.querySelectorAll(".rect")
