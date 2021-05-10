@@ -2,7 +2,6 @@ let idRect = 1
 let interval
 let t = 200
 let point = 0
-let score = false
 
 const start = () => {
   document.querySelector('#start').addEventListener('click', ()=>{
@@ -12,12 +11,7 @@ const start = () => {
 }
 
 const gameLoop = () => {
-  if (score) {
-    point ++
-    score = false
-  }
   moveRect()
-  remove()
   requestAnimationFrame(gameLoop);
 }
 
@@ -37,6 +31,13 @@ const createBrick = () => {
     newdiv.style.top = '-110px'
     newdiv.style.height = Math.floor(Math.random() * (100 - 50 + 1)) + 50 + "px"
     newdiv.id = 'rect-' + idRect
+    newdiv.addEventListener("click", () => {
+      playSound(newdiv.classList)
+      newdiv.remove()
+      point++
+      document.getElementById('affichePoint').innerHTML = point
+    })
+
     document.getElementById('piano').append(newdiv)
     idRect +=1
     changeTimer();
@@ -47,17 +48,6 @@ const createBrick = () => {
     t = Math.floor(Math.random() * (1000 - 500 + 1)) + 500
   }
 
-function remove() {
-  var allRect = document.querySelectorAll('.rect');
-  allRect.forEach((element) => {
-    element.addEventListener("click", () => {
-      playSound(element.classList)
-      element.remove()
-      score = true
-      document.getElementById('affichePoint').innerHTML = point
-    }, false);
-  })
-}
 
 const playSound = (classList) => {
   if (classList.contains("tile1")) {
