@@ -9,11 +9,17 @@
 <body>
   <div id="play">
     <button id="start">play</button>
-    <p>cliquer sur les rectangles pour les faire disparaitre et gagner des points</p>
+    <ul>
+      <li>cliquez sur les rectangles pour les faire disparaitre</li>
+      <li>si vous détruisez un rectangle, vous gagnez 1 point</li>
+      <li>si le rectangle sort de l'ecran vous perdez 10 points</li>
+      <li>le but est d'avoir le plus de points possibles a la fin du temps imparti</li>
+      <li>si vous avez un score négatif, le jeu s'arrete</li>
+    </ul>
   </div>
   <div id ="piano"></div>
-  <div id="infos">
-    <p>vous avez <span id="affichePoint">0</span></p>
+  <div id="score">
+    <p><span id="affichePoint">0</span></p>
   </div>
 </body>
 

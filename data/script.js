@@ -12,6 +12,7 @@ const start = () => {
 
 const gameLoop = () => {
   moveRect()
+  checkPoint()
   requestAnimationFrame(gameLoop);
 }
 
@@ -20,7 +21,18 @@ const moveRect = () => {
   for (const rectangle of rect) {
     const posRect = parseInt(rectangle.style.top.split("px")[0]) + 2 + "px"
     rectangle.style.top = posRect
+    if(rectangle.getBoundingClientRect().top >= window.innerHeight) {
+      rectangle.remove()
+      point -=10
+      document.getElementById('affichePoint').innerHTML = point
+    }
   }
+}
+
+const checkPoint = () => {
+ if (document.getElementById('affichePoint').innerHTML < 0) {
+   alert("tu est nul")
+ }
 }
 
 const createBrick = () => {
@@ -51,7 +63,6 @@ const createBrick = () => {
 
 const playSound = (classList) => {
   if (classList.contains("tile1")) {
-    console.log("uyjedgh")
     new Audio('data/mouton.mp3').play();
   } else if (classList.contains("tile2")) {
     new Audio('data/chevre.mp3').play();
