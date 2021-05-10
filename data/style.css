@@ -32,17 +32,25 @@ body {
 }
 
 #play #playBtn {
+  grid-row: 1;
+  grid-column: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#play button {
-  background: rgba(0, 0, 0, 0);
+#play #start {
+  font-size: 2em;
+  font-style: italic;
+  font-family: 'Comic sans MS';
+  color: white;
+  background-color: rgb(0, 69, 179);
+  border: none;
   grid-row: 1;
   grid-column: 1;
   height: 50%;
   width: 50%;
+  border-radius: 20%;
 }
 
 #play #rules {
@@ -53,11 +61,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.3em;
 }
 
 #play #rules ul {
   list-style: none;
+  font-size: 1em;
+  font-style: italic;
+  font-family: 'Comic sans MS';
 }
 
 #score {
@@ -65,6 +75,22 @@ body {
   grid-column: 3;
   width: 100%;
   height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+}
+
+#score #affichePoint {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#score #countDown {
+  grid-column: 1;
+  grid-row: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,6 +98,8 @@ body {
 
 #score p {
   font-size: 12em;
+  font-style: italic;
+  font-family: 'Comic sans MS';
 }
 
 

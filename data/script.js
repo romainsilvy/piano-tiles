@@ -3,7 +3,7 @@ let interval
 let t = 200
 let point = 0
 let timer;
-let seconds = 6
+let seconds = 60
 
 const start = () => {
   document.querySelector('#start').addEventListener('click', ()=>{
@@ -44,7 +44,7 @@ const createBrick = () => {
   newdiv.setAttribute("class", 'tile' + String(Math.floor(Math.random() * (5 - 1 + 1)) + 1))
   newdiv.className += ' rect'
   newdiv.style.top = '-110px'
-  newdiv.style.height = Math.floor(Math.random() * (100 - 50 + 1)) + 50 + "px"
+  newdiv.style.height = Math.floor(Math.random() * (150 - 50 + 1)) + 50 + "px"
   newdiv.id = 'rect-' + idRect
   newdiv.addEventListener("click", () => {
     playSound(newdiv.classList)
@@ -67,7 +67,7 @@ const launchTimer = () => {
   timer = window.setInterval(function() {
     if (seconds >0 ) {
       seconds--;
-      document.querySelector("#countDown").innerHTML = seconds
+      document.querySelector("#countDown").innerHTML = seconds + "s"
     } else {
       clearInterval(timer);
       clearInterval(interval)
