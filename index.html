@@ -11,6 +11,7 @@
     <div id="playBtn">
       <button id="start">play</button>
       <button id="pause">pause</button>
+      <button id="restart" onClick="window.location.reload()">recommencer</button>
     </div>
     <div id="rules">
       <ul>
@@ -24,8 +25,18 @@
   </div>
   <div id ="piano"></div>
   <div id="score">
-    <p id="affichePoint">0</p>
-    <p id="countDown">60s</p>
+    <div id="displayScore">
+      <p>Vous avez <span id="affichePoint">0</span> points</p>
+      <p>Il vous reste <span id="countDown">60s</span></p>
+    </div>
+    <div id="historique">
+      <table>
+        <tr>
+          <th>date</th>
+          <th>score</th>
+        </tr>
+      </table>
+    </div>
   </div>
 </body>
 

@@ -2,7 +2,7 @@
 let point = 0
 let idRect = 1
 let t = 200
-let seconds = 60
+let seconds = 10
 let interval
 let timer;
 let animation
@@ -18,6 +18,23 @@ const start = () => {
       animation = requestAnimationFrame(gameLoop);
     }
   })
+}
+
+const displayHistory = () => {
+  let history = localStorage.getItem('history')
+  if (history != null) {
+    history = history.split('|')
+    for (let i=0; i < history.length; i += 2) {
+      let newTr = document.createElement('tr')
+      let newTdDate = document.createElement('td')
+      let newTdScore = document.createElement('td')
+      newTdDate.textContent = history[i]
+      newTdScore.textContent = history[i+1]
+      newTr.appendChild(newTdDate)
+      newTr.appendChild(newTdScore)
+      document.querySelector('table').append(newTr)
+    }
+  }
 }
 
 //launched when start button clicked
@@ -97,7 +114,8 @@ const launchTimer = () => {
       seconds--;
       document.querySelector("#countDown").innerHTML = seconds + "s"
     } else {
-      pauseAndRemoveAll()      
+      pauseAndRemoveAll()
+      addHistory()      
     }
   }, 1000);
 }
@@ -132,4 +150,22 @@ const playSound = (classList) => {
   }
 }
 
+const getDate = () => {
+  let date = new Date();
+  let time = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate() + ":" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+  return time
+}
+
+const addHistory = () => {
+  let history = localStorage.getItem('history')
+  if (history === null) {
+    let toAdd = getDate() + "|" + point
+    localStorage.setItem('history', toAdd)
+  } else {
+    let toAdd = getDate() + "|" + point
+    localStorage.setItem('history', history.concat('|', toAdd))
+  }
+}
+
+displayHistory()
 start()
