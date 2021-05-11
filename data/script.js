@@ -1,50 +1,76 @@
-let idRect = 1
-let interval
-let t = 200
+//global vars
 let point = 0
-let timer;
+let idRect = 1
+let t = 200
 let seconds = 60
+let interval
+let timer;
+let animation
+let runing = false
 
+//launched at start 
 const start = () => {
   document.querySelector('#start').addEventListener('click', ()=>{
-    createBrick()
-    launchTimer()
-    gameLoop()
+    if (!runing) {
+      runing = true
+      createBrick()
+      launchTimer()
+      animation = requestAnimationFrame(gameLoop);
+    }
   })
 }
 
+//launched when start button clicked
 const gameLoop = () => {
-  moveRect()
+  moveRect(3)
+  checkPause()
+  animation = requestAnimationFrame(gameLoop);
   checkPoint()
-  requestAnimationFrame(gameLoop);
 }
 
-const moveRect = () => {
+//move all rect down  
+const moveRect = (numberOfPixel) => {
   let rect = document.querySelectorAll(".rect")
   for (const rectangle of rect) {
-    const posRect = parseInt(rectangle.style.top.split("px")[0]) + 2 + "px"
+    const posRect = parseInt(rectangle.style.top.split("px")[0]) + numberOfPixel + "px"
     rectangle.style.top = posRect
     if(rectangle.getBoundingClientRect().top >= window.innerHeight) {
-      rectangle.remove()
-      point -=10
-      document.getElementById('affichePoint').innerHTML = point
+      removeRect(rectangle)
     }
   }
 }
 
-const checkPoint = () => {
- if (document.getElementById('affichePoint').innerHTML < 0) {
-   alert("tu est nul")
- }
+//remove rect if it is out of the screen
+const removeRect = (rectangle) => {
+  rectangle.remove()
+  point -=10
+  document.getElementById('affichePoint').innerHTML = point
 }
 
+//check if Pause buton is clicked 
+const checkPause = () => {
+  document.querySelector('#pause').addEventListener('click', ()=>{
+    pause()
+    runing = false
+  })
+}
+
+//check if points < 0
+const checkPoint = () => {
+  if (point < 0) {
+    pauseAndRemoveAll()
+  }
+}
+
+//create random height bricks at a random interval 
 const createBrick = () => {
   clearInterval(interval);
+
   let newdiv = document.createElement("div");
-  newdiv.setAttribute("class", 'tile' + String(Math.floor(Math.random() * (5 - 1 + 1)) + 1))
+  newdiv.setAttribute("class", 'tile' + String(randomizer(1, 5)))
   newdiv.className += ' rect'
   newdiv.style.top = '-110px'
-  newdiv.style.height = Math.floor(Math.random() * (150 - 50 + 1)) + 50 + "px"
+  newdiv.style.height = randomizer(50, 150) + "px"
   newdiv.id = 'rect-' + idRect
   newdiv.addEventListener("click", () => {
     playSound(newdiv.classList)
@@ -55,30 +81,41 @@ const createBrick = () => {
 
   document.getElementById('piano').append(newdiv)
   idRect +=1
-  changeTimer();
+  t = randomizer(500, 1500)
   interval = setInterval(createBrick, t);
 }
 
-function changeTimer(){
-  t = Math.floor(Math.random() * (1000 - 500 + 1)) + 500
+//return random number between 2 numbers passed as parameter
+const randomizer = (low, high) => {
+  return Math.floor(Math.random() * (high - low + 1)) + low
 }
 
+//launch a timer of 60s
 const launchTimer = () => {
   timer = window.setInterval(function() {
     if (seconds >0 ) {
       seconds--;
       document.querySelector("#countDown").innerHTML = seconds + "s"
     } else {
-      clearInterval(timer);
-      clearInterval(interval)
-      for (let rect of document.querySelectorAll(".rect")) {
-        rect.remove()
-      }
+      pauseAndRemoveAll()      
     }
   }, 1000);
 }
 
+//pause everything
+const pause = () => {
+  cancelAnimationFrame(animation);
+  clearInterval(interval)
+  clearInterval(timer)
+}
 
+//pause the animationframe and remove the rect on the screen 
+const pauseAndRemoveAll = () => {
+  pause() 
+  for (let rect of document.querySelectorAll(".rect")) {
+    rect.remove()
+  }
+}
 
 
 const playSound = (classList) => {
