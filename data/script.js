@@ -94,8 +94,7 @@ const launchTimer = () => {
       document.querySelector("#countDown").innerHTML = seconds + "s"
     } else {
       pauseAndRemoveAll()
-      addHistory()  
-      displayLastHistory()    
+      addHistory()      
     }
   }, 1000);
 }
@@ -126,6 +125,7 @@ const addHistory = () => {
     localStorage.setItem('history', history.concat('|', toAdd))
     checkHistoryLength()
   }
+  displayLastHistory()
 }
 
 const checkHistoryLength = () =>{
@@ -213,6 +213,7 @@ const checkPause = () => {
 const checkPoint = () => {
   if (point < 0) {
     pauseAndRemoveAll()
+    addHistory()
   }
 }
 
