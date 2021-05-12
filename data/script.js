@@ -2,7 +2,8 @@
 let point = 0
 let idRect = 1
 let t = 200
-let seconds = 5
+let seconds = 60
+let vitesse = 0
 let interval
 let timer;
 let animation
@@ -186,8 +187,20 @@ const gameLoop = () => {
 //move all rect down  
 const moveRect = (numberOfPixel) => {
   let rect = document.querySelectorAll(".rect")
+  if ( point === 15){
+    vitesse = 0,5
+  }
+  if ( point === 30){
+    vitesse = 1
+  }
+  if ( point === 45){
+    vitesse = 1,5
+  }
+  if ( point === 60){
+    vitesse = 2
+  }
   for (const rectangle of rect) {
-    const posRect = parseInt(rectangle.style.top.split("px")[0]) + numberOfPixel + "px"
+    const posRect = parseInt(rectangle.style.top.split("px")[0]) + numberOfPixel + vitesse + "px"
     rectangle.style.top = posRect
     if(rectangle.getBoundingClientRect().top >= window.innerHeight) {
       removeRect(rectangle)
