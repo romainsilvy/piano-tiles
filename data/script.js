@@ -60,7 +60,7 @@ const createBrick = () => {
   })
 
   idRect +=1
-  t = randomizer(500, 1500)
+  t = randomizer(300, 1200)
   interval = setInterval(createBrick, t);
 }
 
@@ -72,15 +72,15 @@ const randomizer = (low, high) => {
 //play sound when tile clicked
 const playSound = (classList) => {
   if (classList.contains("tile1")) {
-    new Audio('data/mouton.mp3').play();
+    new Audio('data/1.mp3').play();
   } else if (classList.contains("tile2")) {
-    new Audio('data/chevre.mp3').play();
+    new Audio('data/2.mp3').play();
   } else if (classList.contains("tile3")) {
-    new Audio('data/cheval.mp3').play();
+    new Audio('data/3.mp3').play();
   } else if (classList.contains("tile4")) {
-    new Audio('data/sophie.mp3').play();
+    new Audio('data/4.mp3').play();
   } else if (classList.contains("tile5")) {
-    new Audio('data/cochon.mp3').play();
+    new Audio('data/5.mp3').play();
   }
 }
 
@@ -186,16 +186,16 @@ const gameLoop = () => {
 //move all rect down  
 const moveRect = (numberOfPixel) => {
   let rect = document.querySelectorAll(".rect")
-  if ( point === 15){
+  if ( point <= 15){
     vitesse = 0,5
   }
-  if ( point === 30){
+  if ( point > 15 || point <= 30){
     vitesse = 1
   }
-  if ( point === 45){
+  if ( point > 30 || point <= 45){
     vitesse = 1,5
   }
-  if ( point === 60){
+  if ( point > 45){
     vitesse = 2
   }
   for (const rectangle of rect) {
