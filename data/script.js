@@ -2,7 +2,7 @@
 let point = 0
 let idRect = 1
 let t = 200
-let seconds = 10
+let seconds = 5
 let interval
 let timer;
 let animation
@@ -124,6 +124,21 @@ const addHistory = () => {
   } else {
     let toAdd = getDate() + "|" + point
     localStorage.setItem('history', history.concat('|', toAdd))
+    checkHistoryLength()
+  }
+}
+
+const checkHistoryLength = () =>{
+  let history = localStorage.getItem('history')
+  history = history.split('|')
+  if(history.length > 10) {
+    let newHistory = ""
+    history.shift()
+    history.shift()
+    for (let content of history) {
+      newHistory = newHistory.concat("|", content)
+    }
+    localStorage.setItem('history', newHistory.substring(1))
   }
 }
 
@@ -138,8 +153,11 @@ const getDate = () => {
 const displayLastHistory = () => {
   let history = localStorage.getItem('history')
   if (history != null) {
-    history = history.split('|')
-    createRow(history[history.length-2], history[history.length-1])
+    let rows = document.querySelectorAll('.rowOfScore')
+    for (let row of rows) {
+      row.remove()
+    }
+    displayHistory()
   }
 }
 
@@ -148,6 +166,7 @@ const createRow = (date, score) => {
   let newTr = document.createElement('tr')
   let newTdDate = document.createElement('td')
   let newTdScore = document.createElement('td')
+  newTr.classList.add("rowOfScore")
   newTdDate.textContent = date
   newTdScore.textContent = score
   newTr.appendChild(newTdDate)
