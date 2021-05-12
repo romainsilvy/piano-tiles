@@ -11,7 +11,7 @@
     <div id="playBtn">
       <button id="start">play</button>
       <button id="pause">pause</button>
-      <button id="restart" onClick="window.location.reload()">recommencer</button>
+      <button class="restart" onClick="window.location.reload()">recommencer</button>
     </div>
     <div id="rules">
       <ul>
@@ -28,7 +28,7 @@
   <div id="score">
     <div id="displayScore">
       <div id="textDisplayScore">
-        <p>Vous avez <span id="affichePoint">0</span> points</p>
+        <p>Vous avez <span class="affichePoint">0</span> points</p>
         <p>Il vous reste <span id="countDown">60s</span></p>
       </div>
     </div>
@@ -40,6 +40,16 @@
         </tr>
       </table>
     </div>
+  </div>
+  <div id="displayWin" class="hidden win">
+    <p>Vous avez gagné!</p>
+    <p>Cliquez ici pour recommencer</p>
+    <button class="restart" id="restartAfterWin" onClick="window.location.reload()">recommencer</button>
+  </div>
+  <div id="displayLoose" class="hidden loose">
+    <p>Vous avez perdu!</p>
+    <p>Cliquez ici pour recommencer</p>
+    <button class="restart" id="restartAfterLoose" onClick="window.location.reload()">recommencer</button>
   </div>
 </body>
 

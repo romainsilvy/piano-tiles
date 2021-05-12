@@ -28,7 +28,6 @@ const displayHistory = () => {
   }
 }
 
-
 //launch the gameloop if startButton clicked
 const checkStart = () => {
   document.querySelector('#start').addEventListener('click', ()=>{
@@ -40,7 +39,6 @@ const checkStart = () => {
     }
   })
 }
-
 
 //create random height bricks at a random interval 
 const createBrick = () => {
@@ -58,7 +56,7 @@ const createBrick = () => {
     playSound(newdiv.classList)
     newdiv.remove()
     point++
-    document.getElementById('affichePoint').innerHTML = point
+    document.querySelector(".affichePoint").innerHTML = point
   })
 
   idRect +=1
@@ -95,7 +93,8 @@ const launchTimer = () => {
       document.querySelector("#countDown").innerHTML = seconds + "s"
     } else {
       pauseAndRemoveAll()
-      addHistory()      
+      addHistory() 
+      document.querySelector('#displayWin').classList.remove("hidden")     
     }
   }, 1000);
 }
@@ -212,7 +211,7 @@ const moveRect = (numberOfPixel) => {
 const removeRect = (rectangle) => {
   rectangle.remove()
   point -=10
-  document.getElementById('affichePoint').innerHTML = point
+  document.querySelector(".affichePoint").innerHTML = point
 }
 
 //check if Pause buton is clicked 
@@ -228,6 +227,7 @@ const checkPoint = () => {
   if (point < 0) {
     pauseAndRemoveAll()
     addHistory()
+    document.querySelector('#displayLoose').classList.remove("hidden")
   }
 }
 
