@@ -128,6 +128,7 @@ const addHistory = () => {
   displayLastHistory()
 }
 
+//remove items if the history is too long 
 const checkHistoryLength = () =>{
   let history = localStorage.getItem('history')
   history = history.split('|')
